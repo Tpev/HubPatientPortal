@@ -1,7 +1,11 @@
-import './bootstrap';
+import { createApp } from 'vue';
 
-import Alpine from 'alpinejs';
+import FormBuilder from './components/FormBuilder.vue';
+import FormRenderer from './components/FormRenderer.vue';
 
-window.Alpine = Alpine;
+const app = createApp({});
 
-Alpine.start();
+app.component('form-builder', FormBuilder);
+app.component('form-renderer', FormRenderer);
+
+app.mount('#app');
