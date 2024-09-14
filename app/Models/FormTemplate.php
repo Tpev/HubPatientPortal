@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Form extends Model
+class FormTemplate extends Model
 {
-    protected $fillable = ['title', 'fields'];
+    protected $fillable = ['title', 'fields', 'user_id', 'uuid'];
+
 
     protected static function boot()
     {
@@ -18,13 +19,15 @@ class Form extends Model
         });
     }
 
-    public function getRouteKeyName()
+    public function formInstances()
     {
-        return 'uuid';
+        return $this->hasMany(FormInstance::class);
     }
 
-    public function submissions()
+    public function user()
     {
-        return $this->hasMany(FormSubmission::class);
+        return $this->belongsTo(User::class);
     }
+	
+	
 }

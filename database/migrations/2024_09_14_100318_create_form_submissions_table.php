@@ -13,10 +13,11 @@ return new class extends Migration
 	{
 		Schema::create('form_submissions', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('form_id')->constrained()->onDelete('cascade');
-			$table->json('data');
+			$table->foreignId('form_instance_id')->constrained()->onDelete('cascade');
+			$table->json('data'); // Store the submitted form data as JSON
 			$table->timestamps();
 		});
+
 	}
 
 

@@ -5,7 +5,7 @@
              :name="field.name"
              :id="field.name + idx"
              :value="option"
-             v-model="modelValue"
+             v-model="internalValue"
              class="form-check-input" />
       <label :for="field.name + idx" class="form-check-label">{{ option }}</label>
     </div>
@@ -22,6 +22,14 @@ export default {
   computed: {
     options() {
       return this.field.options ? this.field.options.split(',').map(opt => opt.trim()) : [];
+    },
+    internalValue: {
+      get() {
+        return this.modelValue;
+      },
+      set(value) {
+        this.$emit('update:modelValue', value);
+      },
     },
   },
 };

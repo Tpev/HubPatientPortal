@@ -16,6 +16,7 @@ return new class extends Migration
 				$table->uuid('uuid')->unique();
 				$table->string('title');
 				$table->json('fields');
+				$table->foreignId('user_id')->constrained();
 				$table->timestamps();
 			});
 		}

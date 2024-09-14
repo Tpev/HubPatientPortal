@@ -4,21 +4,31 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Controllers\FormTemplateController;
+use App\Http\Controllers\FormInstanceController;
+
+// Admin routes
+Route::middleware(['auth', IsAdmin::class])->group(function () {
+    Route::get('/forms/create', [FormTemplateController::class, 'create'])->name('forms.create');
+    Route::post('/admin/forms', [FormTemplateController::class, 'store'])->name('forms.store');
+    Route::post('/forms/{form}/instances', [FormInstanceController::class, 'store'])->name('formInstances.store');
+    // Route to view all form templates
+    Route::get('/admin/forms', [FormTemplateController::class, 'index'])->name('forms.index');
+    
+    // Route to create form instances for a specific template
+    Route::post('/admin/forms/{form}/instances', [FormInstanceController::class, 'store'])->name('formInstances.store');
+    
 
 
 
-
-
-Route::middleware([IsAdmin::class])->group(function () {
-    Route::get('/admin/forms/create', [FormController::class, 'create'])->name('forms.create');
-    Route::post('/admin/forms', [FormController::class, 'store'])->name('forms.store');
-    Route::get('/admin/forms/{form}/submissions', [FormController::class, 'submissions'])->name('forms.submissions');
 });
 
-Route::get('/forms/{form}', [FormController::class, 'show'])->name('forms.show');
-Route::post('/forms/{form}', [FormController::class, 'submit'])->name('forms.submit');
 
 
+// Patient routes
+// Route to display the form instance to the patient or user
+Route::get('/form/{uuid}', [FormInstanceController::class, 'show'])->name('formInstances.show');
+Route::post('/form/{uuid}', [FormInstanceController::class, 'submit'])->name('formInstances.submit');
 
 
 

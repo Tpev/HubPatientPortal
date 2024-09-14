@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class FormSubmission extends Model
 {
-    protected $fillable = ['form_id', 'data'];
+    protected $fillable = ['form_instance_id', 'data'];
 
-    public function form()
+    public function formInstance()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(FormInstance::class);
     }
 }
